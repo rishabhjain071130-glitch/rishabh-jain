@@ -1,65 +1,153 @@
-import Image from "next/image";
+import * as React from "react";
+import { Navbar } from "@/components/layout/Navbar";
+import { Hero } from "@/components/hero/Hero";
+import { ProofBar } from "@/components/proof/ProofBar";
+import { About } from "@/components/about/About";
+import { JourneyTimeline } from "@/components/journey/JourneyTimeline";
+import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
+import { SkillsGrid } from "@/components/skills/SkillsGrid";
+import { CertificatesSection } from "@/components/proof/CertificatesSection";
+import { Footer } from "@/components/layout/Footer";
+import { Section } from "@/components/ui/Section";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { JsonLd } from "@/components/seo/JsonLd";
+import dynamic from "next/dynamic";
+
+const CommandPalette = dynamic(() => import("@/components/ui/CommandPalette").then((mod) => mod.CommandPalette));
+
+const Terminal = dynamic(() => import("@/components/ui/Terminal").then((mod) => mod.Terminal), {
+  loading: () => (
+    <div className="w-full bg-[#05070a] border border-border-subtle rounded-md h-80 flex flex-col items-center justify-center font-mono text-xs text-text-muted select-none text-left">
+      <div className="animate-pulse">Loading Terminal Console...</div>
+    </div>
+  ),
+});
+
+const AskRishabhAI = dynamic(() => import("@/components/ai/AskRishabhAI").then((mod) => mod.AskRishabhAI), {
+  loading: () => (
+    <div className="bg-card border border-border-subtle rounded-md h-[400px] flex flex-col items-center justify-center font-mono text-xs text-text-muted select-none text-left">
+      <div className="animate-pulse">Initializing Offline AI Agent...</div>
+    </div>
+  ),
+});
+
+const ContactForm = dynamic(() => import("@/components/contact/ContactForm").then((mod) => mod.ContactForm), {
+  loading: () => (
+    <div className="bg-card/25 border border-border-subtle/60 rounded-lg p-6 md:p-8 h-[500px] flex items-center justify-center text-xs text-text-muted font-mono select-none text-left">
+      <div className="animate-pulse">Loading Dispatch Console...</div>
+    </div>
+  ),
+});
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      {/* Structured Schema Data for SEO */}
+      <JsonLd />
+
+      {/* Global Command Palette */}
+      <CommandPalette />
+
+      {/* Sticky Navigation Header */}
+      <Navbar />
+
+      <main className="flex-1">
+        {/* Hero Area */}
+        <Hero />
+
+        {/* Verification Stats */}
+        <ProofBar />
+
+        {/* Philosophy & Values */}
+        <ScrollReveal yOffset={24}>
+          <Section
+            id="about"
+            eyebrow="Introduction"
+            title="Who is Rishabh?"
+            description="A student builder pursuing secure implementations and intelligent workflow models."
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <About />
+          </Section>
+        </ScrollReveal>
+
+        {/* Learning Chronology */}
+        <ScrollReveal yOffset={24}>
+          <Section
+            id="journey"
+            eyebrow="Timeline"
+            title="Educational Journey"
+            description="The evolution of technical skills and real-world internship completions."
           >
-            Documentation
-          </a>
-        </div>
+            <JourneyTimeline />
+          </Section>
+        </ScrollReveal>
+
+        {/* Featured Case Studies */}
+        <ScrollReveal yOffset={24}>
+          <Section
+            id="projects"
+            eyebrow="Case Studies"
+            title="Featured Engineering"
+            description="Detailed breakdown of practical software applications engineered to solve problems."
+          >
+            <ProjectsGrid />
+          </Section>
+        </ScrollReveal>
+
+        {/* Technical Competency Matrix */}
+        <ScrollReveal yOffset={24}>
+          <Section
+            id="skills"
+            eyebrow="Matrix"
+            title="Professional Skills"
+            description="A filterable index of programming languages, tools, and technical domain depth."
+          >
+            <SkillsGrid />
+          </Section>
+        </ScrollReveal>
+
+        {/* Credentials / Trust Certifications: Placed between Skills and Contact */}
+        <ScrollReveal yOffset={24}>
+          <Section
+            id="certificates"
+            eyebrow="Credentials"
+            title="Trust & Verification"
+            description="Professional internship completions and active technical credentials."
+          >
+            <CertificatesSection />
+          </Section>
+        </ScrollReveal>
+
+        {/* Interactive CLI Console & Mentoring AI */}
+        <ScrollReveal yOffset={24}>
+          <Section
+            id="terminal"
+            eyebrow="Interactive"
+            title="Developer Consoles"
+            description="Interact with the system command CLI or request info from the local AI Mentor agent."
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <Terminal />
+              <AskRishabhAI />
+            </div>
+          </Section>
+        </ScrollReveal>
+
+        {/* Dispatch Secure Message Box */}
+        <ScrollReveal yOffset={24}>
+          <Section
+            id="contact"
+            eyebrow="Connection"
+            title="Dispatch Message"
+            description="Send a secure query or internship offer. Form submission is rate-limited and audit-guarded."
+          >
+            <ContactForm />
+          </Section>
+        </ScrollReveal>
       </main>
-    </div>
+
+      {/* Footer bar */}
+      <Footer />
+    </>
   );
 }

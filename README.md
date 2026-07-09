@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rishabh Portfolio OS
 
-## Getting Started
+An interactive, terminal-inspired developer portfolio and digital resume engineered using Next.js 16 (App Router), React 19, and Tailwind CSS v4.
 
-First, run the development server:
+Designed for recruiters, hiring managers, and engineering leaders seeking a clean, accessible, and high-performance overview of Rishabh's software engineering credentials, practical projects, and cyber security skills.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## ⚡ Key Features
+
+- **Interactive SSH Console**: Simulated CLI console supporting navigation shortcuts and credentials queries (type `help` or `cheatsheet` to begin).
+- **Offline AI Mentor Agent**: An embedded client Q&A mentoring chatbot model representing the candidate's skills and availability.
+- **Global Command Palette**: Focus-trapped search and navigation portal accessible globally via `Ctrl+K` or `Cmd+K`.
+- **Polymorphic ACCESSIBLE UI Primitives**: Standard-compliant links and buttons preventing nested interactive element DOM warnings.
+- **Auto-Scanning Pre-Build Script**: Automated folder scanner (`scan-assets.js`) mapping profile photos, certificate listings, and verify credentials status before build.
+- **Performance Engine**: Next.js code splitting, loading placeholder boundaries, and dynamic import loading optimizations.
+
+---
+
+## ⚙️ Project Architecture
+
+```text
+├── app/                  # Next.js App Router (Layouts, Metadata, OpenGraph images)
+├── components/           # React Components grouped by domain
+│   ├── about/            # Philosophy & Values layout
+│   ├── ai/               # Local Embedded Mentor Agent Chat
+│   ├── contact/          # Rate-limited Secure Message Form
+│   ├── hero/             # Landing Hero & profile photo loading
+│   ├── journey/          # Timeline Milestones
+│   ├── layout/           # Sticky Header & Footer
+│   ├── projects/         # Featured Case Studies grid (interactive Streamlit embeds)
+│   ├── proof/            # Certifications listing & Dynamic pre-view modals
+│   ├── shared/           # Scroll animation reveal utilities
+│   └── ui/               # Core UI primitive elements (Button, Card, Badge, Terminal)
+├── content/              # Auto-generated and static Markdown/JSON data feeds
+├── public/               # Static assets (certificates, resume, profile photo)
+├── scripts/              # scan-assets scanner script
+└── package.json          # Node dependencies & project lifecycle scripts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
 
-## Learn More
+Ensure you have Node.js (v18+) and npm installed locally.
 
-To learn more about Next.js, take a look at the following resources:
+### Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository and navigate to the directory:
+   ```bash
+   cd RISHABH-PORTFOLIO-OS
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+### Development Lifecycle
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Run the local development server (this automatically scans files and configures experience profiles before launching):
+```bash
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000) with your browser to view the portfolio.
+
+### Custom Scanning Script
+
+Before every launch or build, the pre-launch lifecycle script triggers:
+```bash
+node scripts/scan-assets.js
+```
+This script dynamically:
+- Locates profile JPEG photos under `public/profile/` and generates `content/profile.ts`.
+- Scans `public/resume/` for active PDFs and maps `content/resume.ts`.
+- Analyzes folder listings in `public/certificates/` to pair PDF transcripts and images, setting categories and statuses automatically inside `content/certificates.ts`.
+
+---
+
+## 📦 Production Builds
+
+To compile, lint, and verify the production bundle:
+
+1. Compile the static application:
+   ```bash
+   npm run build
+   ```
+
+2. Verify linter guidelines:
+   ```bash
+   npm run lint
+   ```
+
+3. Boot the production server locally:
+   ```bash
+   npm start
+   ```
+
+---
+
+## ☁️ Deployment Guidelines
+
+The project compiles to static pages, making it ideal for hosting on **Vercel** or **Netlify**:
+
+1. Push your changes to GitHub.
+2. Link the repository to your Vercel Dashboard.
+3. Configure the build commands:
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `.next`
+4. Deploy! The scanning script will automatically execute in the Vercel CI environment during the pre-build phase.
