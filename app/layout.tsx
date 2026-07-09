@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -84,6 +85,7 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="bg-bg-primary text-text-primary font-sans min-h-full flex flex-col">
+        <JsonLd />
         {children}
       </body>
     </html>
