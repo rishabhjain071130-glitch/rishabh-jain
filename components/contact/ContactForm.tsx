@@ -247,12 +247,11 @@ export const ContactForm: React.FC = () => {
                     onBlur={handleBlur}
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? "name-error" : undefined}
-                    className={`w-full bg-card border rounded-md px-4 py-2.5 text-sm text-white placeholder:text-text-muted outline-none transition-colors ${
-                      errors.name && touched.name
+                    className={`w-full bg-card border rounded-md px-4 py-2.5 text-sm text-white placeholder:text-text-muted outline-none transition-colors ${errors.name && touched.name
                         ? "border-error focus:border-error"
                         : "border-border-subtle focus:border-brand-blue"
-                    }`}
-                    placeholder="Rishabh Jain"
+                      }`}
+                    placeholder="Your Name"
                   />
                   {errors.name && touched.name && (
                     <p id="name-error" className="text-[10px] text-error font-mono">
@@ -275,12 +274,11 @@ export const ContactForm: React.FC = () => {
                     onBlur={handleBlur}
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? "email-error" : undefined}
-                    className={`w-full bg-card border rounded-md px-4 py-2.5 text-sm text-white placeholder:text-text-muted outline-none transition-colors ${
-                      errors.email && touched.email
+                    className={`w-full bg-card border rounded-md px-4 py-2.5 text-sm text-white placeholder:text-text-muted outline-none transition-colors ${errors.email && touched.email
                         ? "border-error focus:border-error"
                         : "border-border-subtle focus:border-brand-blue"
-                    }`}
-                    placeholder="rishabhjain071130@gmail.com"
+                      }`}
+                    placeholder="[EMAIL_ADDRESS]"
                   />
                   {errors.email && touched.email && (
                     <p id="email-error" className="text-[10px] text-error font-mono">
@@ -304,11 +302,10 @@ export const ContactForm: React.FC = () => {
                   onBlur={handleBlur}
                   aria-invalid={!!errors.subject}
                   aria-describedby={errors.subject ? "subject-error" : undefined}
-                  className={`w-full bg-card border rounded-md px-4 py-2.5 text-sm text-white placeholder:text-text-muted outline-none transition-colors ${
-                    errors.subject && touched.subject
+                  className={`w-full bg-card border rounded-md px-4 py-2.5 text-sm text-white placeholder:text-text-muted outline-none transition-colors ${errors.subject && touched.subject
                       ? "border-error focus:border-error"
                       : "border-border-subtle focus:border-brand-blue"
-                  }`}
+                    }`}
                   placeholder="Collaboration Opportunity"
                 />
                 {errors.subject && touched.subject && (
@@ -332,11 +329,10 @@ export const ContactForm: React.FC = () => {
                   onBlur={handleBlur}
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? "message-error" : undefined}
-                  className={`w-full bg-card border rounded-md px-4 py-2.5 text-sm text-white placeholder:text-text-muted outline-none transition-colors resize-y min-h-[120px] ${
-                    errors.message && touched.message
+                  className={`w-full bg-card border rounded-md px-4 py-2.5 text-sm text-white placeholder:text-text-muted outline-none transition-colors resize-y min-h-[120px] ${errors.message && touched.message
                       ? "border-error focus:border-error"
                       : "border-border-subtle focus:border-brand-blue"
-                  }`}
+                    }`}
                   placeholder="Hi Rishabh, I reviewed your portfolio. Let's discuss an internship position..."
                 />
                 {errors.message && touched.message && (
