@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -89,6 +90,7 @@ export default function RootLayout({
         <ScrollProgress />
         <JsonLd />
         {children}
+        <Analytics />
       </body>
     </html>
   );

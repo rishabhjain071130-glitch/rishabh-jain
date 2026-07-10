@@ -122,18 +122,6 @@ export const certificates: Certificate[] = [
     "category": "Databases"
   },
   {
-    "id": "paloalto-1779637374832",
-    "title": "Palo Alto Networks Cybersecurity Foundation",
-    "organization": "Palo Alto Networks",
-    "issueDate": "June 2026",
-    "completionDate": "June 2026",
-    "credentialId": "PA-CSF-832",
-    "previewImage": "/certificates/paloalto/1779637374832.png",
-    "download": "/certificates/paloalto/1779637374832.png",
-    "status": "Completed",
-    "category": "Cyber Security"
-  },
-  {
     "id": "paloalto-1779637433805",
     "title": "Palo Alto Networks Network Security Gateway",
     "organization": "Palo Alto Networks",
