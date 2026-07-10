@@ -14,7 +14,7 @@ export const experiences: Experience[] = [
       "Used Git and GitHub for version control, branching, and pull requests.",
       "Tested features locally to ensure alignment with design mockups."
     ],
-    certificate: "/certificates/inamigos/Screenshot 2026-07-04 195855.png",
+    certificate: "/certificates/inamigos/Screenshot%202026-07-04%20195855.png",
     github: ""
   },
   {

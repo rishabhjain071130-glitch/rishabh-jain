@@ -19,12 +19,14 @@ export const Terminal: React.FC = () => {
   const [cmdHistory, setCmdHistory] = React.useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = React.useState(-1);
 
-  const terminalEndRef = React.useRef<HTMLDivElement>(null);
+  const consoleContainerRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  // Auto scroll to bottom
+  // Auto scroll to bottom of the console container
   React.useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (consoleContainerRef.current) {
+      consoleContainerRef.current.scrollTop = consoleContainerRef.current.scrollHeight;
+    }
   }, [history]);
 
   // Focus terminal input
@@ -194,7 +196,7 @@ export const Terminal: React.FC = () => {
       </div>
 
       {/* Terminal Console History */}
-      <div className="p-4 flex-1 overflow-y-auto space-y-2 scrollbar-thin">
+      <div ref={consoleContainerRef} className="p-4 flex-1 overflow-y-auto space-y-2 scrollbar-thin">
         {history.map((item, index) => (
           <div
             key={index}
@@ -203,7 +205,6 @@ export const Terminal: React.FC = () => {
             {item.text}
           </div>
         ))}
-        <div ref={terminalEndRef} />
       </div>
 
       {/* Terminal Input Line */}

@@ -10,8 +10,8 @@ To maintain the highest standards of software quality and consistency, please re
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/rishabhjain071130-glitch/Rishabh-Portfolio-OS.git
-   cd Rishabh-Portfolio-OS
+   git clone https://github.com/rishabhjain071130-glitch/rishabh-jain.git
+   cd rishabh-jain
    ```
 
 2. **Install dependencies**:

@@ -50,7 +50,7 @@ Ensure you have Node.js (v18+) and npm installed locally.
 
 1. Clone the repository and navigate to the directory:
    ```bash
-   cd RISHABH-PORTFOLIO-OS
+   cd rishabh-jain
    ```
 
 2. Install dependencies:

@@ -61,7 +61,7 @@ if (fs.existsSync(resumeDir)) {
   const files = fs.readdirSync(resumeDir);
   const pdfFiles = files.filter(f => /\.pdf$/i.test(f));
   if (pdfFiles.length > 0) {
-    resumePath = `/resume/${pdfFiles[0]}`;
+    resumePath = `/resume/${encodeURIComponent(pdfFiles[0])}`;
     console.log(`Detected resume: ${resumePath}`);
   } else {
     console.log('No resume PDF found in public/resume');
@@ -94,7 +94,7 @@ const orgMap = {
   'microsoft': 'Microsoft',
   'oracle': 'Oracle',
   'paloalto': 'Palo Alto Networks',
-  'udacity+google': 'Udacity & Google'
+  'udacity-google': 'Udacity & Google'
 };
 
 const knownFiles = {
@@ -225,21 +225,21 @@ const knownFiles = {
     credentialId: "PA-CDA-968",
     category: "Cyber Security"
   },
-  "GenAI certificate.pdf": {
+  "genai-certificate.pdf": {
     title: "Google Generative AI Course Completion Certificate",
     issueDate: "May 2026",
     completionDate: "May 2026",
     credentialId: "GOOG-GAI-102",
     category: "AI & Machine Learning"
   },
-  "LLM certifivate.pdf": {
+  "llm-certificate.pdf": {
     title: "Google Large Language Models Certificate",
     issueDate: "May 2026",
     completionDate: "May 2026",
     credentialId: "GOOG-LLM-103",
     category: "AI & Machine Learning"
   },
-  "Trust And Sequrity certificate.pdf": {
+  "trust-and-security-certificate.pdf": {
     title: "Google Trust & Security Course Certificate",
     issueDate: "May 2026",
     completionDate: "May 2026",
@@ -300,8 +300,8 @@ function addCertificate(dir, base, previewFile, downloadFile) {
     issueDate,
     completionDate,
     credentialId,
-    previewImage: `/certificates/${dir}/${previewFile}`,
-    download: `/certificates/${dir}/${downloadFile}`,
+    previewImage: `/certificates/${encodeURIComponent(dir)}/${encodeURIComponent(previewFile)}`,
+    download: `/certificates/${encodeURIComponent(dir)}/${encodeURIComponent(downloadFile)}`,
     status,
     category
   });
@@ -385,7 +385,7 @@ export const experiences: Experience[] = [
       "Used Git and GitHub for version control, branching, and pull requests.",
       "Tested features locally to ensure alignment with design mockups."
     ],
-    certificate: "/certificates/inamigos/Screenshot 2026-07-04 195855.png",
+    certificate: "/certificates/inamigos/Screenshot%202026-07-04%20195855.png",
     github: ""
   },
   {

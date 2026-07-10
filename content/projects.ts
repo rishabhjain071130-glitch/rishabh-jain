@@ -172,7 +172,7 @@ export const projects: ProjectCaseStudy[] = [
       "CSS",
       "Git & GitHub"
     ],
-    github: "https://github.com/rishabhjain071130-glitch/Rishabh-Portfolio-OS",
+    github: "https://github.com/rishabhjain071130-glitch/rishabh-jain",
     liveDemo: "/", // Live deployment available
     screenshots: [
       "/projects/portfolio/homepage.jpg"
