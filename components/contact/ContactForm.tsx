@@ -4,6 +4,7 @@ import * as React from "react";
 import { ShieldCheck, Mail, Send, AlertTriangle, Phone, User } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { profile } from "@/content/profile";
+import emailjs from "@emailjs/browser";
 
 interface FormState {
   name: string;
@@ -117,8 +118,27 @@ export const ContactForm: React.FC = () => {
     setStatus("submitting");
 
     try {
-      // Simulate API submit delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS service configuration is missing.");
+      }
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: form.name,
+          reply_to: form.email,
+          subject: form.subject,
+          message: form.message,
+        },
+        {
+          publicKey: publicKey,
+        }
+      );
 
       // Save submission time for rate limit
       localStorage.setItem(rateLimitKey, now.toString());
@@ -126,10 +146,16 @@ export const ContactForm: React.FC = () => {
       setStatus("success");
       setForm({ name: "", email: "", subject: "", message: "", honeypot: "" });
       setTouched({});
-      setErrors({});
-    } catch {
+    } catch (err: unknown) {
       setStatus("error");
-      setErrorMessage("An unexpected server error occurred. Please try again later.");
+      let message = "An unexpected error occurred while transmitting your message. Please verify network status and try again.";
+      if (err && typeof err === "object" && "message" in err) {
+        const potentialMessage = (err as { message: unknown }).message;
+        if (typeof potentialMessage === "string") {
+          message = potentialMessage;
+        }
+      }
+      setErrorMessage(message);
     }
   };
 

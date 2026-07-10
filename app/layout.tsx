@@ -4,6 +4,7 @@ import "./globals.css";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -91,6 +92,7 @@ export default function RootLayout({
         <JsonLd />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
