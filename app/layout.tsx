@@ -75,6 +75,9 @@ export const metadata: Metadata = {
       "Building secure, intelligent, and scalable software through real-world engineering projects while continuously learning Cyber Security, Artificial Intelligence, and Full Stack Development.",
     creator: "@rishabhjain",
   },
+   verification: {
+    google: "M3imSEK7e_zZ5Br4LNoSkfMTZL_M2RjRMX81OeQAM-s",
+  },
 };
 
 export default function RootLayout({
