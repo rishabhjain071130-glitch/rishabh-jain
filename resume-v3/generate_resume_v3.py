@@ -7,7 +7,7 @@ from docx.oxml.ns import qn
 
 # ReportLab imports
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.colors import HexColor
 from reportlab.lib.enums import TA_CENTER, TA_RIGHT
@@ -17,11 +17,30 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     docx_path = os.path.join(script_dir, "Resume_v3.docx")
     pdf_path = os.path.join(script_dir, "Resume_v3.pdf")
+    qr_path = os.path.join(script_dir, "qrcode.png")
+
+    print("Generating QR code...")
+    import qrcode
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=0
+    )
+    qr.add_data('https://rishabh-jain-one.vercel.app')
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    img.save(qr_path)
 
     print(f"Generating DOCX: {docx_path}...")
-    generate_docx(docx_path)
+    generate_docx(docx_path, qr_path)
     print(f"Generating PDF: {pdf_path}...")
-    generate_pdf(pdf_path)
+    generate_pdf(pdf_path, qr_path)
+
+    # Clean up temporary QR code image
+    if os.path.exists(qr_path):
+        os.remove(qr_path)
+
     print("Generation complete!")
 
 
@@ -80,13 +99,13 @@ def add_hyperlink(paragraph, text, url,
     return hyperlink
 
 
-def generate_docx(output_path):
+def generate_docx(output_path, qr_path):
     doc = docx.Document()
 
-    # Margins (0.5 in margins on all sides for one-page fit)
+    # Margins (0.35 in top/bottom, 0.5 in left/right for safe one-page fit with QR code)
     for section in doc.sections:
-        section.top_margin = Inches(0.5)
-        section.bottom_margin = Inches(0.5)
+        section.top_margin = Inches(0.35)
+        section.bottom_margin = Inches(0.35)
         section.left_margin = Inches(0.5)
         section.right_margin = Inches(0.5)
         section.page_width = Inches(8.5)
@@ -98,7 +117,7 @@ def generate_docx(output_path):
     normal_style.font.name = 'Arial'
     normal_style.font.size = Pt(9.5)
     normal_style.font.color.rgb = RGBColor(0x33, 0x33, 0x33)
-    normal_style.paragraph_format.line_spacing = 1.05
+    normal_style.paragraph_format.line_spacing = 1.02
     normal_style.paragraph_format.space_after = Pt(0)
     normal_style.paragraph_format.space_before = Pt(0)
 
@@ -113,8 +132,8 @@ def generate_docx(output_path):
 
     def add_section_header(title):
         p = doc.add_paragraph()
-        p.paragraph_format.space_before = Pt(6)
-        p.paragraph_format.space_after = Pt(2)
+        p.paragraph_format.space_before = Pt(4.5)
+        p.paragraph_format.space_after = Pt(1)
         p.paragraph_format.keep_with_next = True
         run = p.add_run(title.upper())
         run.bold = True
@@ -131,17 +150,50 @@ def generate_docx(output_path):
         return run
 
     # --- HEADER ---
-    header_p = doc.add_paragraph()
+    # We use a 3-column table to keep the header centered while placing the QR code in the top-right.
+    header_table = doc.add_table(rows=1, cols=3)
+    header_table.autofit = False
+
+    # Left and right columns balance each other (1.1 inches each) to keep the middle column (5.3 inches) centered.
+    header_table.columns[0].width = Inches(1.1)
+    header_table.columns[1].width = Inches(5.3)
+    header_table.columns[2].width = Inches(1.1)
+
+    # Empty left cell (setting font size to Pt(1) to avoid height padding)
+    left_cell = header_table.cell(0, 0)
+    for cell in header_table.rows[0].cells:
+        tcPr = cell._element.get_or_add_tcPr()
+        tcMar = docx.oxml.parse_xml(
+            r'<w:tcMar xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            r'<w:top w:w="0" w:type="dxa"/>'
+            r'<w:bottom w:w="0" w:type="dxa"/>'
+            r'<w:left w:w="0" w:type="dxa"/>'
+            r'<w:right w:w="0" w:type="dxa"/>'
+            r'</w:tcMar>'
+        )
+        tcPr.append(tcMar)
+
+    left_p = left_cell.paragraphs[0]
+    left_p.paragraph_format.space_after = Pt(0)
+    left_p.paragraph_format.space_before = Pt(0)
+    left_run = left_p.add_run()
+    left_run.font.size = Pt(1)
+
+    # Middle cell contains name and contact details (centered)
+    middle_cell = header_table.cell(0, 1)
+    header_p = middle_cell.paragraphs[0]
     header_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     header_p.paragraph_format.space_after = Pt(1)
+    header_p.paragraph_format.space_before = Pt(0)
     name_run = header_p.add_run("RISHABH JAIN\n")
     name_run.bold = True
     name_run.font.size = Pt(16)
     name_run.font.color.rgb = RGBColor(0x1B, 0x36, 0x5D)
 
-    contact_p = doc.add_paragraph()
+    contact_p = middle_cell.add_paragraph()
     contact_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     contact_p.paragraph_format.space_after = Pt(4)
+    contact_p.paragraph_format.space_before = Pt(0)
 
     add_text_run(contact_p, "+91 9258121291  |  ")
     add_hyperlink(contact_p, "rishabhjain071130@gmail.com",
@@ -159,6 +211,27 @@ def generate_docx(output_path):
     add_hyperlink(contact_p, "linkedin.com/in/rishabh-jain-40079a396",
                   "https://www.linkedin.com/in/rishabh-jain-40079a396/",
                   color_rgb=(0x1B, 0x36, 0x5D), underline=True)
+
+    # Right cell contains QR code (right-aligned) and caption below
+    right_cell = header_table.cell(0, 2)
+    right_p = right_cell.paragraphs[0]
+    right_p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    right_p.paragraph_format.space_after = Pt(0)
+    right_p.paragraph_format.space_before = Pt(0)
+
+    # Add QR code image (approx. 0.98 inch = 2.5 cm wide and high)
+    qr_run = right_p.add_run()
+    qr_run.add_picture(qr_path, width=Inches(0.98), height=Inches(0.98))
+
+    # Add caption paragraph
+    caption_p = right_cell.add_paragraph()
+    caption_p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    caption_p.paragraph_format.space_after = Pt(0)
+    caption_p.paragraph_format.space_before = Pt(1)
+    caption_run = caption_p.add_run("Scan to view Portfolio")
+    caption_run.font.name = 'Arial'
+    caption_run.font.size = Pt(6.5)
+    caption_run.font.color.rgb = RGBColor(0x77, 0x77, 0x77)
 
     # --- 1. SUMMARY ---
     add_section_header("Summary")
@@ -397,15 +470,15 @@ def generate_docx(output_path):
     doc.save(output_path)
 
 
-def generate_pdf(output_path):
-    # Setup document with 0.5-inch margins (36 pt). Margins reduced to 30 for safe one-page fit.
+def generate_pdf(output_path, qr_path):
+    # Setup document with 0.33-inch margins (24 pt) for safe one-page fit with QR code.
     doc = SimpleDocTemplate(
         output_path,
         pagesize=letter,
         leftMargin=36,
         rightMargin=36,
-        topMargin=30,
-        bottomMargin=30
+        topMargin=24,
+        bottomMargin=24
     )
 
     story = []
@@ -445,7 +518,7 @@ def generate_pdf(output_path):
         fontSize=9.8,
         leading=11,
         textColor=navy,
-        spaceBefore=4,
+        spaceBefore=3,  # Optimized from 4 to save space
         spaceAfter=1,
         keepWithNext=True
     )
@@ -457,7 +530,7 @@ def generate_pdf(output_path):
         fontSize=8.8,
         leading=11,
         textColor=dark_grey,
-        spaceAfter=2
+        spaceAfter=1.5  # Optimized from 2 to save space
     )
 
     bullet_style = ParagraphStyle(
@@ -469,7 +542,7 @@ def generate_pdf(output_path):
         textColor=dark_grey,
         leftIndent=10,
         firstLineIndent=-10,
-        spaceAfter=0.8
+        spaceAfter=0.5  # Optimized from 0.8 to save space
     )
 
     def add_section_header(title_text):
@@ -478,22 +551,60 @@ def generate_pdf(output_path):
                      color=rule_grey, spaceBefore=0.5, spaceAfter=2.5))
 
     # --- HEADER ---
-    story.append(Paragraph("RISHABH JAIN", title_style))
-    story.append(Spacer(1, 1.5))
-    story.append(Paragraph(
-        "+91 9258121291  |  "
-        "<a href=\"mailto:rishabhjain071130@gmail.com\"><font color=\"#1B365D\">"
-        "<u>rishabhjain071130@gmail.com</u></font></a>  |  "
-        "<a href=\"https://rishabh-jain-one.vercel.app\"><font color=\"#1B365D\">"
-        "<u>rishabh-jain-one.vercel.app</u></font></a><br/>"
-        "<a href=\"https://github.com/rishabhjain071130-glitch/rishabh-jain\">"
-        "<font color=\"#1B365D\"><u>github.com/rishabhjain071130-glitch/rishabh-jain</u>"
-        "</font></a>  |  "
-        "<a href=\"https://www.linkedin.com/in/rishabh-jain-40079a396/\">"
-        "<font color=\"#1B365D\"><u>linkedin.com/in/rishabh-jain-40079a396</u>"
-        "</font></a>",
-        contact_style
-    ))
+    # Middle cell contains name and contact details (centered)
+    middle_flowables = [
+        Paragraph("RISHABH JAIN", title_style),
+        Spacer(1, 1.5),
+        Paragraph(
+            "+91 9258121291  |  "
+            "<a href=\"mailto:rishabhjain071130@gmail.com\"><font color=\"#1B365D\">"
+            "<u>rishabhjain071130@gmail.com</u></font></a>  |  "
+            "<a href=\"https://rishabh-jain-one.vercel.app\"><font color=\"#1B365D\">"
+            "<u>rishabh-jain-one.vercel.app</u></font></a><br/>"
+            "<a href=\"https://github.com/rishabhjain071130-glitch/rishabh-jain\">"
+            "<font color=\"#1B365D\"><u>github.com/rishabhjain071130-glitch/rishabh-jain</u>"
+            "</font></a>  |  "
+            "<a href=\"https://www.linkedin.com/in/rishabh-jain-40079a396/\">"
+            "<font color=\"#1B365D\"><u>linkedin.com/in/rishabh-jain-40079a396</u>"
+            "</font></a>",
+            contact_style
+        )
+    ]
+
+    # Right cell contains QR code (72 pt = 2.54 cm wide/high) and caption
+    qr_flowables = [
+        Image(qr_path, width=72, height=72),
+        Spacer(1, 1),
+        Paragraph("Scan to view Portfolio", ParagraphStyle(
+            'QRCaption',
+            parent=styles['Normal'],
+            fontName='Helvetica',
+            fontSize=6.0,
+            leading=7.0,
+            alignment=TA_CENTER,
+            textColor=light_grey
+        ))
+    ]
+
+    # Left cell is empty (to balance QR code and keep middle cell perfectly centered)
+    header_table_data = [
+        [
+            [Paragraph("", contact_style)],
+            middle_flowables,
+            qr_flowables
+        ]
+    ]
+
+    header_table = Table(header_table_data, colWidths=[72, 396, 72])
+    header_table.setStyle(TableStyle([
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+        ('TOPPADDING', (0, 0), (-1, -1), 0),
+        ('LEFTPADDING', (0, 0), (-1, -1), 0),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+    ]))
+
+    story.append(header_table)
     story.append(Spacer(1, 3))
 
     # --- 1. SUMMARY ---
