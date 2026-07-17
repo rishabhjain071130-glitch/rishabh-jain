@@ -37,6 +37,12 @@ def main():
     print(f"Generating PDF: {pdf_path}...")
     generate_pdf(pdf_path, qr_path)
 
+    # Copy the generated PDF to public/resume/Resume_v3.pdf
+    import shutil
+    public_resume_dir = os.path.join(os.path.dirname(script_dir), "public", "resume")
+    os.makedirs(public_resume_dir, exist_ok=True)
+    shutil.copyfile(pdf_path, os.path.join(public_resume_dir, "Resume_v3.pdf"))
+
     # Clean up temporary QR code image
     if os.path.exists(qr_path):
         os.remove(qr_path)
