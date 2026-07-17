@@ -26,7 +26,7 @@ export const journeyMilestones: JourneyMilestone[] = [
   {
     id: "internships",
     title: "Web Development Internships",
-    date: "2025 - Present",
+    date: "2026 - Present",
     description: "Hands-on engineering experience",
     tags: ["InAmigos Foundation", "Labmentix", "Web Development"],
     richDetails: [
