@@ -11,6 +11,12 @@ def main():
     generate_docx("Resume_v2.docx")
     print("Generating Resume_v2.pdf...")
     generate_pdf("Resume_v2.pdf")
+
+    # Copy the generated PDF to public/resume/Resume_v2.pdf
+    import shutil
+    os.makedirs("public/resume", exist_ok=True)
+    shutil.copyfile("Resume_v2.pdf", "public/resume/Resume_v2.pdf")
+
     print("Generation complete!")
 
 
