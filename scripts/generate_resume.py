@@ -61,6 +61,58 @@ def generate_docx(output_path):
         add_p_border_bottom(p)
         return p
 
+    def add_hyperlink(paragraph, text, url, color_rgb=(0x1B, 0x36, 0x5D), underline=True, font_size=Pt(8.5), bold=False, italic=False):
+        """
+        Adds a clickable hyperlink run to a paragraph.
+        """
+        part = paragraph.part
+        r_id = part.relate_to(url, docx.opc.constants.RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
+
+        hyperlink = OxmlElement('w:hyperlink')
+        hyperlink.set(qn('r:id'), r_id)
+
+        new_run = OxmlElement('w:r')
+        rPr = OxmlElement('w:rPr')
+
+        rFonts = OxmlElement('w:rFonts')
+        rFonts.set(qn('w:ascii'), 'Arial')
+        rFonts.set(qn('w:hAnsi'), 'Arial')
+        rPr.append(rFonts)
+
+        if font_size:
+            sz = OxmlElement('w:sz')
+            sz.set(qn('w:val'), str(int(font_size.pt * 2)))
+            rPr.append(sz)
+
+        if color_rgb:
+            color_hex = f"{color_rgb[0]:02X}{color_rgb[1]:02X}{color_rgb[2]:02X}"
+            c = OxmlElement('w:color')
+            c.set(qn('w:val'), color_hex)
+            rPr.append(c)
+
+        if underline:
+            u = OxmlElement('w:u')
+            u.set(qn('w:val'), 'single')
+            rPr.append(u)
+
+        if bold:
+            b = OxmlElement('w:b')
+            rPr.append(b)
+
+        if italic:
+            i = OxmlElement('w:i')
+            rPr.append(i)
+
+        new_run.append(rPr)
+
+        text_node = OxmlElement('w:t')
+        text_node.text = text
+        new_run.append(text_node)
+
+        hyperlink.append(new_run)
+        paragraph._p.append(hyperlink)
+        return hyperlink
+
     # --- HEADER ---
     header_p = doc.add_paragraph()
     header_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -73,12 +125,22 @@ def generate_docx(output_path):
     contact_p = doc.add_paragraph()
     contact_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     contact_p.paragraph_format.space_after = Pt(4)
-    contact_run = contact_p.add_run(
-        "+91 9258121291  |  rishabhjain071130@gmail.com  |  https://rishabhjain.dev\n"
-        "github.com/rishabhjain071130-glitch  |  linkedin.com/in/rishabh-jain-40079a396"
-    )
-    contact_run.font.size = Pt(8.5)
-    contact_run.font.color.rgb = RGBColor(0x55, 0x55, 0x55)
+
+    def add_text_run(p, text):
+        run = p.add_run(text)
+        run.font.name = 'Arial'
+        run.font.size = Pt(8.5)
+        run.font.color.rgb = RGBColor(0x55, 0x55, 0x55)
+        return run
+
+    add_text_run(contact_p, "+91 9258121291  |  ")
+    add_hyperlink(contact_p, "rishabhjain071130@gmail.com", "mailto:rishabhjain071130@gmail.com", color_rgb=(0x1B, 0x36, 0x5D), underline=True)
+    add_text_run(contact_p, "  |  ")
+    add_hyperlink(contact_p, "rishabh-jain-one.vercel.app", "https://rishabh-jain-one.vercel.app", color_rgb=(0x1B, 0x36, 0x5D), underline=True)
+    add_text_run(contact_p, "\n")
+    add_hyperlink(contact_p, "github.com/rishabhjain071130-glitch/rishabh-jain", "https://github.com/rishabhjain071130-glitch/rishabh-jain", color_rgb=(0x1B, 0x36, 0x5D), underline=True)
+    add_text_run(contact_p, "  |  ")
+    add_hyperlink(contact_p, "linkedin.com/in/rishabh-jain-40079a396", "https://www.linkedin.com/in/rishabh-jain-40079a396/", color_rgb=(0x1B, 0x36, 0x5D), underline=True)
 
     # --- 1. PROFESSIONAL SUMMARY ---
     add_section_header("Professional Summary")
@@ -219,7 +281,7 @@ def generate_docx(output_path):
     r_os = p_os.add_run("Rishabh Portfolio OS")
     r_os.bold = True
     p_os.add_run(" (Next.js, React, TypeScript, Tailwind CSS, Git) | ")
-    p_os.add_run("github.com/rishabhjain071130-glitch/rishabh-jain").italic = True
+    add_hyperlink(p_os, "github.com/rishabhjain071130-glitch/rishabh-jain", "https://github.com/rishabhjain071130-glitch/rishabh-jain", color_rgb=(0x1B, 0x36, 0x5D), underline=True, font_size=Pt(9.5), italic=True)
     p_os.paragraph_format.space_after = Pt(1)
     p_os.paragraph_format.keep_with_next = True
     
@@ -235,7 +297,7 @@ def generate_docx(output_path):
     r_ep = p_ep.add_run("EduPilot AI")
     r_ep.bold = True
     p_ep.add_run(" (Python, Streamlit, Gemini API, HTML, CSS, Git) | ")
-    p_ep.add_run("github.com/rishabhjain071130-glitch/EduPilot-AI").italic = True
+    add_hyperlink(p_ep, "github.com/rishabhjain071130-glitch/EduPilot-AI", "https://github.com/rishabhjain071130-glitch/EduPilot-AI", color_rgb=(0x1B, 0x36, 0x5D), underline=True, font_size=Pt(9.5), italic=True)
     p_ep.paragraph_format.space_after = Pt(1)
     p_ep.paragraph_format.keep_with_next = True
     
@@ -251,7 +313,7 @@ def generate_docx(output_path):
     r_dl = p_dl.add_run("Digital Loan System")
     r_dl.bold = True
     p_dl.add_run(" (Node.js, Express.js, MongoDB, Mongoose, HTML, CSS) | ")
-    p_dl.add_run("github.com/rishabhjain071130-glitch/digitalloansystem").italic = True
+    add_hyperlink(p_dl, "github.com/rishabhjain071130-glitch/digitalloansystem", "https://github.com/rishabhjain071130-glitch/digitalloansystem", color_rgb=(0x1B, 0x36, 0x5D), underline=True, font_size=Pt(9.5), italic=True)
     p_dl.paragraph_format.space_after = Pt(1)
     p_dl.paragraph_format.keep_with_next = True
     
@@ -401,8 +463,11 @@ def generate_pdf(output_path):
     story.append(Paragraph("RISHABH JAIN", title_style))
     story.append(Spacer(1, 1.5))
     story.append(Paragraph(
-        "+91 9258121291  |  rishabhjain071130@gmail.com  |  https://rishabhjain.dev<br/>"
-        "github.com/rishabhjain071130-glitch  |  linkedin.com/in/rishabh-jain-40079a396",
+        "+91 9258121291  |  "
+        "<a href=\"mailto:rishabhjain071130@gmail.com\"><font color=\"#1B365D\"><u>rishabhjain071130@gmail.com</u></font></a>  |  "
+        "<a href=\"https://rishabh-jain-one.vercel.app\"><font color=\"#1B365D\"><u>rishabh-jain-one.vercel.app</u></font></a><br/>"
+        "<a href=\"https://github.com/rishabhjain071130-glitch/rishabh-jain\"><font color=\"#1B365D\"><u>github.com/rishabhjain071130-glitch/rishabh-jain</u></font></a>  |  "
+        "<a href=\"https://www.linkedin.com/in/rishabh-jain-40079a396/\"><font color=\"#1B365D\"><u>linkedin.com/in/rishabh-jain-40079a396</u></font></a>",
         contact_style
     ))
     story.append(Spacer(1, 3))
@@ -519,15 +584,27 @@ def generate_pdf(output_path):
     add_section_header("Featured Projects")
     
     # Portfolio OS
-    story.append(Paragraph("<b>Rishabh Portfolio OS</b> (Next.js, React, TypeScript, Tailwind CSS, Git) | <i>github.com/rishabhjain071130-glitch/rishabh-jain</i>", body_style))
+    story.append(Paragraph(
+        "<b>Rishabh Portfolio OS</b> (Next.js, React, TypeScript, Tailwind CSS, Git) | "
+        "<i><a href=\"https://github.com/rishabhjain071130-glitch/rishabh-jain\"><font color=\"#1B365D\"><u>github.com/rishabhjain071130-glitch/rishabh-jain</u></font></a></i>",
+        body_style
+    ))
     story.append(Paragraph("&bull; Designed terminal-themed developer portfolio featuring CLI console simulation and rate-limited forms.", bullet_style))
     
     # EduPilot AI
-    story.append(Paragraph("<b>EduPilot AI</b> (Python, Streamlit, Gemini API, HTML, CSS, Git) | <i>github.com/rishabhjain071130-glitch/EduPilot-AI</i>", body_style))
+    story.append(Paragraph(
+        "<b>EduPilot AI</b> (Python, Streamlit, Gemini API, HTML, CSS, Git) | "
+        "<i><a href=\"https://github.com/rishabhjain071130-glitch/EduPilot-AI\"><font color=\"#1B365D\"><u>github.com/rishabhjain071130-glitch/EduPilot-AI</u></font></a></i>",
+        body_style
+    ))
     story.append(Paragraph("&bull; Built AI career mentor mapping skill gaps and generating custom roadmaps using Gemini API prompts.", bullet_style))
     
     # Digital Loan System
-    story.append(Paragraph("<b>Digital Loan System</b> (Node.js, Express.js, MongoDB, Mongoose, HTML, CSS) | <i>github.com/rishabhjain071130-glitch/digitalloansystem</i>", body_style))
+    story.append(Paragraph(
+        "<b>Digital Loan System</b> (Node.js, Express.js, MongoDB, Mongoose, HTML, CSS) | "
+        "<i><a href=\"https://github.com/rishabhjain071130-glitch/digitalloansystem\"><font color=\"#1B365D\"><u>github.com/rishabhjain071130-glitch/digitalloansystem</u></font></a></i>",
+        body_style
+    ))
     story.append(Paragraph("&bull; Developed Express/MongoDB loan manager with session control, ledger logs, and automated notifications.", bullet_style))
     story.append(Spacer(1, 1))
 
