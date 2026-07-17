@@ -1,3 +1,3 @@
 export const resumeConfig = {
-  filePath: "/resume/Rishabh_Jain_Resume.pdf",
+  filePath: "/resume/Resume_v2.pdf",
 };
