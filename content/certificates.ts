@@ -2,6 +2,18 @@ import { Certificate } from "@/types";
 
 export const certificates: Certificate[] = [
   {
+    "id": "google-cloud-agentic-ai-edition",
+    "title": "Cloud Technical Series: Agentic AI Edition",
+    "organization": "Google Cloud",
+    "issueDate": "July 2026",
+    "completionDate": "July 2026",
+    "credentialId": "GC-CTSAAI-2026",
+    "previewImage": "/certificates/google-cloud/agentic-ai-edition.jpg",
+    "download": "/certificates/google-cloud/agentic-ai-edition.jpg",
+    "status": "Completed",
+    "category": "AI & Machine Learning"
+  },
+  {
     "id": "ibm-ibm-ml",
     "title": "Machine Learning Roadmap Certification",
     "organization": "IBM",

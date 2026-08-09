@@ -87,6 +87,7 @@ const certificatesDir = path.join(publicDir, 'certificates');
 const certsList = [];
 
 const orgMap = {
+  'google-cloud': 'Google Cloud',
   'ibm': 'IBM',
   'inamigos': 'InAmigos Foundation',
   'internshala': 'Internshala',
@@ -98,6 +99,13 @@ const orgMap = {
 };
 
 const knownFiles = {
+  "agentic-ai-edition.jpg": {
+    title: "Cloud Technical Series: Agentic AI Edition",
+    issueDate: "July 2026",
+    completionDate: "July 2026",
+    credentialId: "GC-CTSAAI-2026",
+    category: "AI & Machine Learning"
+  },
   "ibm ml.jpeg": {
     title: "Machine Learning Roadmap Certification",
     issueDate: "January 2026",
