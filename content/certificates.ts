@@ -2,6 +2,18 @@ import { Certificate } from "@/types";
 
 export const certificates: Certificate[] = [
   {
+    "id": "campuscrew-quizoff-2026",
+    "title": "QuizOff 2026: India's Biggest AI Quiz",
+    "organization": "CampusCrew",
+    "issueDate": "July 2026",
+    "completionDate": "July 2026",
+    "credentialId": "CC-QUIZOFF-2026",
+    "previewImage": "/certificates/campuscrew/quizoff-2026.jpg",
+    "download": "/certificates/campuscrew/quizoff-2026.jpg",
+    "status": "Completed",
+    "category": "Achievements"
+  },
+  {
     "id": "google-cloud-agentic-ai-edition",
     "title": "Cloud Technical Series: Agentic AI Edition",
     "organization": "Google Cloud",

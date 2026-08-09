@@ -87,6 +87,7 @@ const certificatesDir = path.join(publicDir, 'certificates');
 const certsList = [];
 
 const orgMap = {
+  'campuscrew': 'CampusCrew',
   'google-cloud': 'Google Cloud',
   'ibm': 'IBM',
   'inamigos': 'InAmigos Foundation',
@@ -99,6 +100,13 @@ const orgMap = {
 };
 
 const knownFiles = {
+  "quizoff-2026.jpg": {
+    title: "QuizOff 2026: India's Biggest AI Quiz",
+    issueDate: "July 2026",
+    completionDate: "July 2026",
+    credentialId: "CC-QUIZOFF-2026",
+    category: "Achievements"
+  },
   "agentic-ai-edition.jpg": {
     title: "Cloud Technical Series: Agentic AI Edition",
     issueDate: "July 2026",
