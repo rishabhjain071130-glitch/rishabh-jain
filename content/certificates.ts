@@ -62,6 +62,18 @@ export const certificates: Certificate[] = [
     "category": "Cyber Security"
   },
   {
+    "id": "kaggle-ai-agents-intensive",
+    "title": "5-Day AI Agents: Intensive Vibe Coding Course",
+    "organization": "Kaggle",
+    "issueDate": "July 2026",
+    "completionDate": "July 2026",
+    "credentialId": "KAG-VIBE-2026",
+    "previewImage": "/certificates/kaggle/ai-agents-intensive.jpg",
+    "download": "/certificates/kaggle/ai-agents-intensive.jpg",
+    "status": "Completed",
+    "category": "Competition"
+  },
+  {
     "id": "labmentix-labmentix_offer_letter_rishabh_jain",
     "title": "Labmentix Web Development Internship",
     "organization": "Labmentix",

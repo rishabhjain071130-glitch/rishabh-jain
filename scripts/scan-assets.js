@@ -92,6 +92,7 @@ const orgMap = {
   'ibm': 'IBM',
   'inamigos': 'InAmigos Foundation',
   'internshala': 'Internshala',
+  'kaggle': 'Kaggle',
   'labmentix': 'Labmentix',
   'microsoft': 'Microsoft',
   'oracle': 'Oracle',
@@ -100,6 +101,13 @@ const orgMap = {
 };
 
 const knownFiles = {
+  "ai-agents-intensive.jpg": {
+    title: "5-Day AI Agents: Intensive Vibe Coding Course",
+    issueDate: "July 2026",
+    completionDate: "July 2026",
+    credentialId: "KAG-VIBE-2026",
+    category: "Competition"
+  },
   "quizoff-2026.jpg": {
     title: "QuizOff 2026: India's Biggest AI Quiz",
     issueDate: "July 2026",
