@@ -20,7 +20,11 @@ const qaDatabase: QAPair[] = [
   },
   {
     keywords: ["project", "edupilot", "mentoring", "agents", "ai"],
-    answer: "His featured project is EduPilot AI, a multi-agent career mentor system built using Next.js, React, Node.js, and GenAI APIs. It guides students by evaluating skill gaps and generating custom learning roadmaps.",
+    answer: "His major AI projects include FocusFlow AI (an AI productivity workspace powered by Gemini 2.5 Flash-Lite) and EduPilot AI (a career mentorship system built with Python, Streamlit, and Gemini APIs).",
+  },
+  {
+    keywords: ["focusflow", "focusflow ai", "productivity", "summarize", "gemini 2.5"],
+    answer: "FocusFlow AI is an AI-powered productivity assistant built with Python, Streamlit, and Google Gemini 2.5 Flash-Lite. It provides a unified workspace for summarizing text, asking questions, generating content, analyzing text, and smart suggestions.",
   },
   {
     keywords: ["security", "cyber", "protection", "safe", "owasp", "networks"],

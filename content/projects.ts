@@ -78,6 +78,69 @@ export const projects: ProjectCaseStudy[] = [
     ]
   },
   {
+    id: "focusflow-ai",
+    title: "FocusFlow AI",
+    category: "AI / Productivity",
+    status: "Completed",
+    description: "An AI-powered productivity assistant built with Python, Streamlit, and Google Gemini that provides a unified workspace for text summarization, Q&A, content generation, text analysis, and smart suggestions.",
+    problem: "Working with large amounts of information often requires users to switch between multiple tools for summarization, question answering, content creation, text analysis, and productivity planning.",
+    solution: "FocusFlow AI brings these common productivity tasks into one AI-powered workspace using Gemini 2.5 Flash-Lite and Streamlit with secure API key handling and graceful rate-limit handling.",
+    features: [
+      "5 AI Productivity Modes",
+      "Gemini 2.5 Flash-Lite",
+      "Secure API Integration",
+      "Modern Streamlit UI",
+      "Live Deployment"
+    ],
+    techStack: [
+      "Python",
+      "Streamlit",
+      "Google Gemini API",
+      "Google GenAI SDK",
+      "Gemini 2.5 Flash-Lite"
+    ],
+    github: "https://github.com/rishabhjain071130-glitch/focusflow-ai",
+    liveDemo: "https://focusflow-ai-kdakrcva45bz5t4xwrgxsy.streamlit.app/",
+    screenshots: [
+      "/projects/focusflow/dashboard.jpg"
+    ],
+    architecture: "Built with Python and Streamlit using the Google GenAI SDK to communicate with Gemini 2.5 Flash-Lite. Implements secure environment variable API key storage, empty-input validation, friendly error handling, and graceful rate-limit handling.",
+    featured: false,
+    difficulty: "Medium",
+    role: "Python & AI Developer",
+    lessonsLearned: "Gained hands-on experience in integrating Google GenAI SDK with Streamlit, handling LLM rate limits gracefully, and managing secure API keys.",
+    futureImprovements: [
+      "Multi-document side-by-side analysis",
+      "Export summaries to PDF and Markdown",
+      "Custom prompt preset library"
+    ],
+    timeline: "Summer 2026",
+    sections: [
+      {
+        title: "Overview",
+        content: "FocusFlow AI is an AI-powered productivity assistant built with Python, Streamlit, and Google Gemini. It provides a unified workspace for summarizing text, asking questions, generating content, analyzing text, and receiving actionable productivity suggestions. The application uses Gemini 2.5 Flash-Lite and provides a clean, modern interface designed to help users understand, create, and improve content more efficiently."
+      },
+      {
+        title: "Problem",
+        content: "Working with large amounts of information often requires users to switch between multiple tools for summarization, question answering, content creation, text analysis, and productivity planning. This creates unnecessary context switching and makes it harder to manage everyday information and content-related tasks efficiently."
+      },
+      {
+        title: "Solution",
+        content: "FocusFlow AI brings these common productivity tasks into one AI-powered workspace. It provides five integrated AI capabilities: Summarize Text, Ask AI, Generate Content, Analyze Text, and Smart Suggestions. The application also includes secure Gemini API key handling, empty-input validation, user-friendly error handling, and graceful rate-limit handling."
+      },
+      {
+        title: "Key Features",
+        content: [
+          "5 AI Productivity Modes",
+          "Gemini 2.5 Flash-Lite",
+          "Secure API Integration",
+          "Modern Streamlit UI",
+          "Live Deployment"
+        ]
+      }
+    ]
+  },
+  {
     id: "finflow",
     title: "FinFlow",
     category: "Web Development",

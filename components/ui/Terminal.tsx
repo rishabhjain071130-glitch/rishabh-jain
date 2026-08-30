@@ -109,9 +109,12 @@ export const Terminal: React.FC = () => {
           type: "output",
           text: (
             <div className="space-y-1 font-mono text-xs">
-              <p className="text-white font-bold">EduPilot AI (AI Mentor):</p>
-              <p className="text-text-secondary pl-4">A multi-agent AI mentoring framework generating personalized career paths and learning roadmaps.</p>
-              <p className="text-text-muted pl-4">Tech: Next.js, React, Node.js, LLM Generative APIs</p>
+              <p className="text-white font-bold">FocusFlow AI (AI Productivity Assistant):</p>
+              <p className="text-text-secondary pl-4">A unified AI workspace for text summarization, Q&A, content generation, and text analysis.</p>
+              <p className="text-text-muted pl-4">Tech: Python, Streamlit, Gemini 2.5 Flash-Lite</p>
+              <p className="text-white font-bold mt-2">EduPilot AI (AI Mentor):</p>
+              <p className="text-text-secondary pl-4">A career guidance helper prototype that formats learning roadmaps based on student interests.</p>
+              <p className="text-text-muted pl-4">Tech: Python, Streamlit, Google Gemini API</p>
             </div>
           ),
         });
