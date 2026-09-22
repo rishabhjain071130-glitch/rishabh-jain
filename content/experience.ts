@@ -18,6 +18,21 @@ export const experiences: Experience[] = [
     github: ""
   },
   {
+    id: "innovation-hacks",
+    company: "Innovation Hacks",
+    role: "AI Intern",
+    status: "Completed",
+    duration: "Aug 2026 - Sep 2026",
+    description: "Completed an intensive AI Internship organized by Innovation Hacks, working on artificial intelligence concepts and intelligent workflows.",
+    highlights: [
+      "Successfully completed the 1-month AI Internship organized by Innovation Hacks (Aug 11, 2026 - Sep 11, 2026).",
+      "Applied foundational AI concepts, prompt engineering, and modern intelligent application features.",
+      "Received Certificate of Completion with verification ID IH-AI-2026-0211."
+    ],
+    certificate: "/certificates/innovation-hacks/innovation-hacks-ai-internship.png",
+    github: ""
+  },
+  {
     id: "labmentix",
     company: "Labmentix",
     role: "Web Development Intern",

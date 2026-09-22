@@ -25,12 +25,13 @@ export const journeyMilestones: JourneyMilestone[] = [
   },
   {
     id: "internships",
-    title: "Web Development Internships",
-    date: "2026 - Present",
+    title: "Software & AI Internships",
+    date: "2025 - Present",
     description: "Hands-on engineering experience",
-    tags: ["InAmigos Foundation", "Labmentix", "Web Development"],
+    tags: ["InAmigos Foundation", "Innovation Hacks", "Labmentix"],
     richDetails: [
       "Completed a Web Development internship at InAmigos Foundation, collaborating on frontend interface layouts and version control workflows.",
+      "Completed an AI Internship at Innovation Hacks (Aug 2026 - Sep 2026), focusing on AI concepts, prompt engineering, and intelligent application features.",
       "Currently participating in a 6-month web engineering internship at Labmentix to build features and connect APIs."
     ]
   },

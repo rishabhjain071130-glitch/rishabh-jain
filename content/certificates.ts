@@ -50,6 +50,18 @@ export const certificates: Certificate[] = [
     "category": "Web Development"
   },
   {
+    "id": "innovation-hacks-innovation-hacks-ai-internship",
+    "title": "AI Internship Certificate of Completion",
+    "organization": "Innovation Hacks",
+    "issueDate": "August 2026",
+    "completionDate": "September 2026",
+    "credentialId": "IH-AI-2026-0211",
+    "previewImage": "/certificates/innovation-hacks/innovation-hacks-ai-internship.png",
+    "download": "/certificates/innovation-hacks/innovation-hacks-ai-internship.png",
+    "status": "Completed",
+    "category": "AI & Machine Learning"
+  },
+  {
     "id": "internshala-cyber-security-with-ai-training---certificate-of-completion",
     "title": "Cyber Security with AI Training",
     "organization": "Internshala",

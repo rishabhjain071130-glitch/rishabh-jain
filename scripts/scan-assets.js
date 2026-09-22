@@ -91,6 +91,7 @@ const orgMap = {
   'google-cloud': 'Google Cloud',
   'ibm': 'IBM',
   'inamigos': 'InAmigos Foundation',
+  'innovation-hacks': 'Innovation Hacks',
   'internshala': 'Internshala',
   'kaggle': 'Kaggle',
   'labmentix': 'Labmentix',
@@ -269,6 +270,13 @@ const knownFiles = {
     completionDate: "May 2026",
     credentialId: "GOOG-TS-104",
     category: "Cyber Security"
+  },
+  "innovation-hacks-ai-internship.png": {
+    title: "AI Internship Certificate of Completion",
+    issueDate: "August 2026",
+    completionDate: "September 2026",
+    credentialId: "IH-AI-2026-0211",
+    category: "AI & Machine Learning"
   }
 };
 
@@ -410,6 +418,21 @@ export const experiences: Experience[] = [
       "Tested features locally to ensure alignment with design mockups."
     ],
     certificate: "/certificates/inamigos/Screenshot%202026-07-04%20195855.png",
+    github: ""
+  },
+  {
+    id: "innovation-hacks",
+    company: "Innovation Hacks",
+    role: "AI Intern",
+    status: "Completed",
+    duration: "Aug 2026 - Sep 2026",
+    description: "Completed an intensive AI Internship organized by Innovation Hacks, working on artificial intelligence concepts and intelligent workflows.",
+    highlights: [
+      "Successfully completed the 1-month AI Internship organized by Innovation Hacks (Aug 11, 2026 - Sep 11, 2026).",
+      "Applied foundational AI concepts, prompt engineering, and modern intelligent application features.",
+      "Received Certificate of Completion with verification ID IH-AI-2026-0211."
+    ],
+    certificate: "/certificates/innovation-hacks/innovation-hacks-ai-internship.png",
     github: ""
   },
   {
